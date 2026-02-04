@@ -26,8 +26,7 @@ const nextConfig: NextConfig = {
   },
   // Enable compression
   compress: true,
-  // Standalone output for Node.js deployment on cPanel
-  output: "standalone",
+  // Output configuration removed for Netlify compatibility
 };
 
 export default nextConfig;
