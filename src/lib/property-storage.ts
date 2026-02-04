@@ -42,6 +42,20 @@ async function loadProperties(): Promise<Property[]> {
 
 async function saveProperties(properties: Property[]): Promise<void> {
   await ensureDataDir();
+
+  // Check if we're in a serverless environment
+  if (process.env.VERCEL || process.env.NETLIFY) {
+    throw new Error(
+      "❌ READ-ONLY FILESYSTEM DETECTED\n\n" +
+        "Admin features (Create/Edit/Delete) require a database.\n\n" +
+        "Quick Setup Options:\n" +
+        "1. Supabase (Free PostgreSQL): https://supabase.com\n" +
+        "2. MongoDB Atlas (Free): https://mongodb.com/atlas\n" +
+        "3. Deploy to cPanel with write access\n\n" +
+        "Your site displays all data correctly in view-only mode!"
+    );
+  }
+
   await writeFile(
     PROPERTIES_FILE,
     JSON.stringify(properties, null, 2),
