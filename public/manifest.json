@@ -1,0 +1,42 @@
+{
+  "name": "Martin Doks Homes",
+  "short_name": "MDH",
+  "description": "Luxury Construction & Real Estate in Lagos, Nigeria",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#efb105",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "real estate", "construction"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Listings",
+      "short_name": "Listings",
+      "description": "Browse available properties",
+      "url": "/listings",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Portfolio",
+      "short_name": "Portfolio",
+      "description": "View our construction projects",
+      "url": "/portfolio",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

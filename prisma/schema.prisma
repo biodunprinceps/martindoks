@@ -1,0 +1,251 @@
+// Prisma Schema for Martin Doks Homes
+// Run `npx prisma generate` after setting DATABASE_URL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Admin Users
+model AdminUser {
+  id                String   @id @default(uuid())
+  username          String   @unique
+  password          String   // Should be hashed in production
+  role              String?  // 'admin' | 'editor'
+  permissions       String[] @default([]) // Array of permission strings
+  twoFactorEnabled  Boolean  @default(false)
+  twoFactorSecret   String?  // Encrypted TOTP secret
+  backupCodes       String[] @default([]) // Encrypted backup codes
+  profilePicture    String?
+  bio               String?  @db.Text
+  email             String?
+  phone             String?
+  preferences       Json?    // Dashboard layout, notifications, etc.
+  createdAt         DateTime @default(now())
+  lastLogin         DateTime?
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  activities        ActivityLog[]
+  contentVersions   ContentVersion[]
+  assignedContent   ContentAssignment[]
+
+  @@map("admin_users")
+}
+
+// Blog Posts
+model BlogPost {
+  id                String    @id @default(uuid())
+  slug              String    @unique
+  title             String
+  excerpt           String
+  content           String    @db.Text
+  author            String    @default("Martin Doks")
+  publishedAt       DateTime  @default(now())
+  status            String    @default("published") // 'draft' | 'published' | 'scheduled'
+  scheduledPublishAt DateTime?
+  featuredImage     String?
+  category          String?
+  tags              String[]  @default([])
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([status])
+  @@index([publishedAt])
+  @@index([slug])
+  @@map("blog_posts")
+}
+
+// Properties (Listings and Portfolio)
+model Property {
+  id            String    @id @default(uuid())
+  slug          String    @unique
+  title         String
+  description   String    @db.Text
+  location      String
+  price         String?
+  type          String    // 'construction' | 'rent' | 'sale' | 'land'
+  status        String    // 'ongoing' | 'completed' | 'upcoming'
+  images        String[]  @default([])
+  featuredImage String
+  bedrooms      Int?
+  bathrooms     Int?
+  squareFeet    Int?
+  virtualTourUrl String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@index([slug])
+  @@map("properties")
+}
+
+// Testimonials
+model Testimonial {
+  id          String   @id @default(uuid())
+  name        String
+  role        String?
+  company     String?
+  content     String   @db.Text
+  image       String?
+  rating      Int?     @default(5) // 1-5 stars
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([featured])
+  @@map("testimonials")
+}
+
+// Newsletter Subscribers
+model NewsletterSubscriber {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  verified         Boolean   @default(false)
+  verificationToken String?  @unique
+  verifiedAt       DateTime?
+  subscribedAt     DateTime  @default(now())
+  unsubscribedAt   DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([email])
+  @@index([verified])
+  @@map("newsletter_subscribers")
+}
+
+// Activity Log for audit trail and activity feed
+model ActivityLog {
+  id          String   @id @default(uuid())
+  userId      String?  // Admin user who performed the action
+  username    String?  // Store username for historical reference
+  action      String   // 'create', 'update', 'delete', 'login', etc.
+  entityType  String   // 'blog_post', 'property', 'testimonial', etc.
+  entityId    String?  // ID of the affected entity
+  entityTitle String?  // Title/name for display
+  details     Json?    // Additional action details
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user        AdminUser? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([action])
+  @@map("activity_logs")
+}
+
+// Content Version History
+model ContentVersion {
+  id          String   @id @default(uuid())
+  entityType  String   // 'blog_post', 'property', 'testimonial'
+  entityId    String   // ID of the content
+  version     Int      // Version number
+  title       String?
+  content     Json     // Full content snapshot
+  changes     Json?    // What changed in this version
+  createdBy   String?  // User ID
+  username    String?  // Username for display
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user        AdminUser? @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@unique([entityType, entityId, version])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("content_versions")
+}
+
+// Media Library
+model MediaFile {
+  id            String   @id @default(uuid())
+  filename      String
+  originalName  String
+  mimeType      String
+  size          Int      // Size in bytes
+  width         Int?
+  height        Int?
+  url           String   // Full URL to the file
+  thumbnailUrl  String?  // Thumbnail URL
+  altText       String?
+  caption       String?
+  folder        String?  // Optional folder organization
+  tags          String[] @default([])
+  metadata      Json?    // Additional metadata
+  uploadedBy    String?  // User ID
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([uploadedBy])
+  @@index([folder])
+  @@index([createdAt])
+  @@map("media_files")
+}
+
+// Content Templates
+model ContentTemplate {
+  id          String   @id @default(uuid())
+  name        String
+  type        String   // 'blog_post', 'property', 'email'
+  category    String?  // Template category
+  content     Json     // Template structure
+  description String?  @db.Text
+  isDefault   Boolean  @default(false)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([type])
+  @@index([category])
+  @@map("content_templates")
+}
+
+// Content Assignments (for team collaboration)
+model ContentAssignment {
+  id          String   @id @default(uuid())
+  entityType  String   // 'blog_post', 'property', etc.
+  entityId    String   // ID of the content
+  assignedTo  String   // User ID
+  assignedBy  String?  // User who made the assignment
+  status      String   @default("assigned") // 'assigned', 'in_progress', 'completed'
+  notes       String?  @db.Text
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user        AdminUser @relation(fields: [assignedTo], references: [id], onDelete: Cascade)
+
+  @@unique([entityType, entityId, assignedTo])
+  @@index([assignedTo])
+  @@index([status])
+  @@map("content_assignments")
+}
+
+// Analytics Events (optional, can also use external service)
+model AnalyticsEvent {
+  id          String   @id @default(uuid())
+  eventType   String   // 'page_view', 'property_view', 'inquiry', etc.
+  entityType  String?  // 'blog_post', 'property', etc.
+  entityId    String?  // ID of the entity
+  entitySlug  String?  // Slug for easy querying
+  metadata    Json?    // Additional event data
+  ipAddress   String?
+  userAgent   String?
+  referrer    String?
+  createdAt   DateTime @default(now())
+
+  @@index([eventType])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("analytics_events")
+}

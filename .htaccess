@@ -1,0 +1,57 @@
+# Disable directory browsing
+Options -Indexes +FollowSymLinks
+
+# Next.js cPanel Configuration
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Serve static files directly from .next/static
+  RewriteCond %{REQUEST_URI} ^/_next/static/
+  RewriteRule ^_next/static/(.*)$ .next/static/$1 [L]
+  
+  # Serve public files directly (images, icons, etc)
+  RewriteCond %{REQUEST_URI} ^/(images|icons|uploads|videos|favicon\.ico|icon\.png|apple-icon\.png|manifest\.json|sw\.js|robots\.txt|sitemap\.xml)
+  RewriteRule ^(.*)$ public/$1 [L]
+  
+  # Block /_next/image requests (since we disabled image optimization)
+  RewriteCond %{REQUEST_URI} ^/_next/image
+  RewriteRule ^.*$ - [R=404,L]
+  
+  # Don't rewrite for files that exist
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  
+  # Proxy ALL other requests to Node.js server on port 3000
+  RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+</IfModule>
+
+# Enable proxy settings
+<IfModule mod_proxy.c>
+  ProxyPreserveHost On
+  ProxyTimeout 300
+</IfModule>
+
+# Security: Prevent access to sensitive files and directories
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# Prevent direct access to sensitive directories
+RedirectMatch 403 ^/data/
+RedirectMatch 403 ^/node_modules/
+RedirectMatch 403 ^/\.next/(cache|server|build-manifest\.json|react-loadable-manifest\.json)
+
+# Allow static assets from .next
+<DirectoryMatch "^/.*/\.next/static">
+  Require all granted
+</DirectoryMatch>
+
+# Allow public directory access
+<Directory "public">
+  Require all granted
+  Options -Indexes +FollowSymLinks
+</Directory>
+

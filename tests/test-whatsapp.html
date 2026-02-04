@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Test - Martin Doks Homes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #efb105;
+        }
+        .test-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 15px 30px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .test-link:hover {
+            background: #20BA5A;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .code {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>WhatsApp Integration Test</h1>
+        
+        <div class="info">
+            <strong>Phone Number:</strong> +2349139694471<br>
+            <strong>WhatsApp URL Format:</strong> 2349139694471 (without +)
+        </div>
+
+        <h2>Test Links:</h2>
+        
+        <h3>1. General WhatsApp Button (Homepage)</h3>
+        <p>Message: "Hello! I'm interested in learning more about Martin Doks Homes."</p>
+        <a href="https://wa.me/2349139694471?text=Hello!%20I'm%20interested%20in%20learning%20more%20about%20Martin%20Doks%20Homes." 
+           class="test-link" 
+           target="_blank">
+            Test General WhatsApp Link
+        </a>
+        
+        <h3>2. Property-Specific WhatsApp Button</h3>
+        <p>Message: "Hello! I'm interested in this property: [Property Title] 📍 [Location] 💰 ₦[Price]"</p>
+        <a href="https://wa.me/2349139694471?text=Hello!%20I'm%20interested%20in%20this%20property:%0A%0A*Luxury%20Apartment%20in%20Lagos*%0A📍%20Victoria%20Island%0A💰%20₦50,000,000%0A%0ACould%20you%20please%20provide%20more%20information?" 
+           class="test-link" 
+           target="_blank">
+            Test Property WhatsApp Link
+        </a>
+
+        <h3>3. Custom Test Message</h3>
+        <p>You can test with any custom message:</p>
+        <div class="code">
+            https://wa.me/2349139694471?text=YOUR_MESSAGE_HERE
+        </div>
+        <a href="https://wa.me/2349139694471?text=This%20is%20a%20test%20message%20from%20Martin%20Doks%20Homes%20website." 
+           class="test-link" 
+           target="_blank">
+            Test Custom Message
+        </a>
+
+        <h2>Verification Checklist:</h2>
+        <ul>
+            <li>✅ WhatsApp number updated to +2349139694471</li>
+            <li>✅ All phone number references updated across the site</li>
+            <li>✅ WhatsApp buttons use correct format (2349139694471 without +)</li>
+            <li>✅ Pre-filled messages work correctly</li>
+        </ul>
+
+        <h2>Files Updated:</h2>
+        <ul>
+            <li>src/components/features/WhatsAppButton.tsx</li>
+            <li>src/components/features/PropertyWhatsAppButton.tsx</li>
+            <li>src/components/features/LiveChat.tsx</li>
+            <li>src/components/layout/Footer.tsx</li>
+            <li>src/app/contact/page.tsx</li>
+            <li>src/lib/structured-data.ts</li>
+            <li>All API routes (contact, notifications, etc.)</li>
+        </ul>
+    </div>
+</body>
+</html>
+
