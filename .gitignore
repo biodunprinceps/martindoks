@@ -33,9 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# data files (subscriber database, blog posts, properties)
-/data
-/public/uploads
+# Don't ignore data files - they are our database!
+# /data
+# /public/uploads
 
 # vercel
 .vercel

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "28da6b7c-ab50-4a81-ac21-f086ad94a483",
+    "email": "wodivap123@cexch.com",
+    "verified": false,
+    "verificationToken": "1db273be-454f-46a3-b236-b3734e0f75df-mihfyxhb",
+    "verifiedAt": null,
+    "subscribedAt": "2025-11-27T13:00:41.087Z",
+    "unsubscribedAt": null,
+    "createdAt": "2025-11-27T13:00:41.087Z",
+    "updatedAt": "2025-11-27T13:00:41.087Z"
+  },
+  {
+    "id": "f64ec740-25ba-4305-b44b-05f672814299",
+    "email": "vawab94422@cexch.com",
+    "verified": false,
+    "verificationToken": "9fd67602-33d1-4e57-8599-b84d931f8290-mij2jr4r",
+    "verifiedAt": null,
+    "subscribedAt": "2025-11-28T16:20:30.363Z",
+    "unsubscribedAt": null,
+    "createdAt": "2025-11-28T16:20:30.363Z",
+    "updatedAt": "2025-11-28T16:20:30.363Z"
+  },
+  {
+    "id": "5494681f-fa45-4fdc-a8bf-ef67e0450522",
+    "email": "test-1764351737691@example.com",
+    "verified": false,
+    "verificationToken": "a9689b0a-6727-4cb6-8636-6c6938a69372-mij5gxod",
+    "verifiedAt": null,
+    "subscribedAt": "2025-11-28T17:42:17.725Z",
+    "unsubscribedAt": null,
+    "createdAt": "2025-11-28T17:42:17.725Z",
+    "updatedAt": "2025-11-28T17:42:17.725Z"
+  },
+  {
+    "id": "07a29b94-2d01-4646-b077-fc102d88e20c",
+    "email": "wendyeromosele@martindokshomes.com",
+    "verified": true,
+    "verificationToken": null,
+    "verifiedAt": "2025-12-02T14:43:40.097Z",
+    "subscribedAt": "2025-12-02T10:16:32.724Z",
+    "unsubscribedAt": null,
+    "createdAt": "2025-12-02T10:16:32.724Z",
+    "updatedAt": "2025-12-02T14:43:40.097Z"
+  }
+]

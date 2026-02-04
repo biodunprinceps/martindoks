@@ -1,0 +1,57 @@
+[
+  {
+    "username": "nancy",
+    "password": "password",
+    "role": "editor",
+    "permissions": [
+      "manage_blog",
+      "manage_properties",
+      "manage_testimonials"
+    ],
+    "id": "14dfdb8f-279b-4a51-bd48-a23365c80ea2",
+    "createdAt": "2025-12-01T06:56:07.679Z",
+    "lastLogin": "2025-12-08T09:56:18.538Z"
+  },
+  {
+    "username": "admin",
+    "password": "admin",
+    "role": "admin",
+    "permissions": [
+      "manage_blog",
+      "manage_properties",
+      "manage_testimonials",
+      "manage_subscribers",
+      "manage_users",
+      "manage_settings"
+    ],
+    "id": "4e87368e-be15-499b-99df-aa6ae6d17019",
+    "createdAt": "2025-12-01T06:56:07.737Z",
+    "lastLogin": "2026-01-23T13:17:35.119Z"
+  },
+  {
+    "username": "mark",
+    "password": "password",
+    "role": "editor",
+    "permissions": [
+      "manage_blog",
+      "manage_properties",
+      "manage_testimonials"
+    ],
+    "id": "ceda0a37-8519-4875-a690-acafd2322ff9",
+    "createdAt": "2025-12-01T07:00:15.671Z",
+    "lastLogin": "2025-12-09T06:21:47.197Z"
+  },
+  {
+    "username": "blessing",
+    "password": "password",
+    "role": "editor",
+    "permissions": [
+      "manage_blog",
+      "manage_properties",
+      "manage_testimonials"
+    ],
+    "id": "194e7721-d763-4f17-8598-1a83ea5dab21",
+    "createdAt": "2025-12-01T07:00:19.012Z",
+    "lastLogin": "2025-12-08T12:21:28.878Z"
+  }
+]
